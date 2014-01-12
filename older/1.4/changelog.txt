@@ -1,0 +1,8 @@
+MAJOR:
+- Fixed editing only working on some forums
+- Added upload feature
+- Users can now go to the advanced editor
+
+MINOR:
+- Updated zeditor.popup function
+- Added zeditor.advance function

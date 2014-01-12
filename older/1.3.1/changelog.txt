@@ -1,0 +1,3 @@
+Fixed css and js for chrome users
+Added zeditor.preview_close function
+Fixed new posts not showing after posting on vietnamese forums

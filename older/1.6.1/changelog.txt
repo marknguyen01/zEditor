@@ -1,0 +1,2 @@
+Fixed Reply and Pm button not showing on the new post
+Added slideup effect to editor

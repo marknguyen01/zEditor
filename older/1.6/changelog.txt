@@ -1,0 +1,13 @@
+MAJOR:
+- Added sending pm feature
+- New posts and edited posts are now showing custom bbcodes correctly
+- Added smooth scroll effect after posting
+- Added ? button
+
+
+MINOR:
+- Tagging feature will now display the error message if it cannot find the user
+- Moved all variables to zeditor function
+- Removed some untouched variables
+- Fixed some little details on the layout
+- Added zeditor.copyright, zeditor.pm, and zeditor.post_pm function

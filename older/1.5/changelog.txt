@@ -1,0 +1,12 @@
+MAJOR:
+- Added Hex and RGB to color picker
+- Added new quote system
+
+
+MINOR:
+- Renamed zeditor.color function to zeditor.hideColor function
+- Changed zeditor.load function to zeditor.edit and zeditor.quote function
+- Added zeditor.convertHex, zeditor.convertRHB, zeditor.submitColor, and zeditor.createColor function
+- Fixed an extra reply button showing after sending an edited post
+- Fixed zeditor.close_prieview function not show and renamed to zeditor.closePreview
+- Fixed cursor not staying in the textarea while using popups
