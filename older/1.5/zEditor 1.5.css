@@ -1,0 +1,204 @@
+#ze-color-info, #ze-editor {
+    -moz-user-select: none;
+    -webkit-user-select: none;
+}
+
+#ze-editor {
+    background: linear-gradient(#F5F5F5, #CFD1CF);
+    border: 1px solid #B6B6B6;
+    border-radius: 5px;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.15);
+    font-family: Verdana;
+    margin: 20px auto;
+    padding: 5px 10px;
+    width: 65%;
+}
+
+#editor-top {
+    height: 38px;
+    display: inline-block;
+    position: relative;
+    transition: 1s;
+    margin-top: 4px;
+    width: 100%;
+}
+
+#outer-preview {
+    position: relative;
+    height: 200px;
+    width: 100%;
+}
+
+#editor-mode, #editor-post-button {
+    display: inline-block;
+}
+
+#editor-mode {
+    float: right;
+    font-weight: bold;
+    color: #FFF;
+    text-shadow: -1px -1px 0 #B6B6B6, 1px -1px 0 #B6B6B6, -1px 1px 0 #B6B6B6, 1px 1px 0 #B6B6B6;
+}
+
+#ze-preview {
+    background-color: #F8F8F8;
+    border: 1px solid #CCCCCC;
+    cursor: pointer;
+    height: 100%;
+    overflow: auto;
+    padding: 0 4px;
+    position: absolute;
+    width: calc(100% - 8px);
+    z-index: 9;
+    display: none;
+}
+
+#ze-copyright {
+    float: right;
+    margin: 4px;
+    padding: 4px;
+}
+
+#editor-post-tool {
+    margin-top: 10px;
+}
+
+#editor-textarea {
+    border: 1px solid #B6B6B6;
+    height: 100%;
+    position: relative;
+    resize: none;
+    width: 100%;
+}
+
+.editor-button {
+    margin-top: 1px;
+    display: block;
+}
+
+#ze-smiley, #ze-color, #ze-upload {
+    background-color: #F7F7F7;
+    border: 1px solid #CCCCCC;
+    margin: 25px 0 0 20px;
+    max-height: 125px;
+    max-width: 500px;
+    padding: 10px;
+    position: absolute;
+    z-index: 999;
+    display: none;
+}
+
+#ze-smiley {
+    overflow: auto;
+}
+
+#ze-smiley {
+    margin-left: 130px;
+}
+
+#ze-color-info {
+    margin-top: 10px;
+}
+
+#ze-color-inner div {
+    height: 12px;
+    width: 12px;
+    cursor: pointer;
+}
+
+.ze-color-input, #ze-color-submit {
+    background: 0 0 #F3F3F3;
+    border: 1px solid #BDBDBD;
+    border-radius: 3px;
+    color: #B8B8B8;
+    font-size: 12px;
+    height: 20px;
+    margin-right: 10px;
+    position: relative;
+    width: 60px;
+    float: left;
+    text-transform: uppercase;
+}
+
+#ze-color-submit {
+    float: right;
+    text-align: center;
+    color: #000;
+    cursor: pointer;
+}
+
+.ze-color-input input {
+    border: medium none;
+    color: #555555;
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 12px;
+    height: 20px;
+    line-height: 20px;
+    outline: medium none;
+    text-align: right;
+    width: 43px;
+    right: 0;
+    position: absolute;
+}
+
+.ze-color-input div {
+    background: #EFEFEF;
+    border-right: 1px solid #BDBDBD;
+    color: #777777;
+    font-weight: bold;
+    height: 20px;
+    line-height: 20px;
+    padding-left: 4px;
+    position: absolute;
+    width: 12px;
+    left: 0;
+}
+
+.editor-button-outer, #editor-post-button span {
+    background: linear-gradient(#FFFFFF, #E4E4E4);
+    border: 1px solid #A6A6A6;
+    border-radius: 4px;
+    box-shadow: 0 10px 15px #FFFFFF inset;
+    color: #504F4F !important;
+    cursor: pointer;
+    display: block;
+    float: left;
+    margin: 4px;
+    padding: 4px;
+    text-shadow: 0 2px 0 #E9E9E9;
+}
+
+.editor-button-outer:hover, #editor-post-button span:hover {
+    color: #000 !important;
+}
+
+#quick_reply {
+    display: none !important;
+}
+
+#editor-loading {
+    background: #DCE1DE;
+    border-radius: 4px;
+    color: #FFFFFF;
+    font-weight: bold;
+    left: 50%;
+    margin-left: -40px;
+    margin-top: 50px;
+    padding: 5px 15px;
+    position: absolute;
+    text-align: center;
+    text-shadow: -1px -1px 0 #B6B6B6, 1px -1px 0 #B6B6B6, -1px 1px 0 #B6B6B6, 1px 1px 0 #B6B6B6;
+    z-index: 10;
+    border: 1px solid #B6B6B6;
+}
+
+#editor-copyright {
+    float: right;
+    margin: 4px;
+    padding: 4px;
+}
+
+#editor-copyright a {
+    text-shadow: -1px -1px 0 #B6B6B6, 1px -1px 0 #B6B6B6, -1px 1px 0 #B6B6B6, 1px 1px 0 #B6B6B6 !important;
+    color: #FFFFFF !important;
+}
