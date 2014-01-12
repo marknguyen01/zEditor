@@ -50,7 +50,7 @@
     overflow: auto;
     padding: 0 4px;
     position: absolute;
-    width: calc(100% - 10px);
+    width: calc(100% - 8px);
     z-index: 9;
     display: none;
 }
@@ -64,7 +64,7 @@
     height: 100%;
     position: relative;
     resize: none;
-    width: calc(100% - 2px);
+    width: 100%;
     padding: 0 !important;
 }
 
