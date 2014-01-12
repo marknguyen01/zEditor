@@ -81,10 +81,10 @@ var zeditor = {
 	},
 	button: function (where) {
 		$(where).each(function () {
-			$(this).find('a[href*="quote"]').attr('onclick', 'zeditor.start(\'quote\', this); return false').parent().prepend('<a class="pbutton" href="#reply" onclick="zeditor.start(\'reply\', this)">' + zeditor.lang.reply_button + '</a><a class="pbutton" href="#pm" onclick="zeditor.start(\'pm\', this)">' + zeditor.lang.pm_button + '</a>');
+$(this).find('a[href*="quote"]').attr('onclick', 'zeditor.start(\'quote\', this); return false').parent().prepend('<a class="pbutton" href="#reply" onclick="zeditor.start(\'reply\', this)">' + zeditor.lang.reply_button + '</a><a class="pbutton" href="#pm" onclick="zeditor.start(\'pm\', this)">' + zeditor.lang.pm_button + '</a>');
 			$(this).find('a[href*="editpost"]').attr('onclick', 'zeditor.start(\'edit\', this); return false')
 		});
-	},
+},
 	start: function (a, dom) {
 		$(zeditor.editor).appendTo($(dom).parents(zeditor.post_dom).find('.zeditor'));
 		$(zeditor.editor).slideDown();
@@ -147,7 +147,7 @@ var zeditor = {
 				'message': zeditor.textarea.value
 			}, function (data) {
 				var en = "Your message has been entered successfully";
-				vi = "B�i c?a b?n �? ��?c chuy?n";
+				vi = "Bài của bạn đã được chuyển";
 				b = (data.indexOf(en) < 0) ? vi : en;
 				index = data.indexOf(b);
 				if (data.indexOf("Flood control") > 0) {
@@ -169,11 +169,11 @@ var zeditor = {
 		zeditor.editor.style.display = 'none';
 		if (zeditor.mode.innerHTML == zeditor.lang.reply || zeditor.mode.innerHTML == zeditor.lang.quote) {
 			$.get(a, function (data) {
-				$('<div class="zeditor-new">' + zeditor.replace($(data).find("#p" + b).wrapAll('<div></div>').parent().html()) + '</div>').insertAfter(zeditor.post_dom + ':last');
+				$('<div class="zeditor-new">' + zeditor.replace($(data).find("#p" + b).wrapAll('<div></div>').parent().html()) + '</div>').insertAfter(zeditor.post_dom + ':last');			
 				$('html,body').animate({
 					scrollTop: $('.zeditor-new:last').offset().top
 				}, 600);
-				zeditor.button('.zeditor-new:last ' + zeditor.button_dom);
+zeditor.button('.zeditor-new:last ' + zeditor.button_dom);
 			});
 		}
 		if (zeditor.mode.innerHTML == zeditor.lang.edit) {
@@ -289,7 +289,7 @@ var zeditor = {
 		})
 	},
 	copyright: function () {
-		if (confirm("zEditor 1.6.1 by Zero. Click OK to visit my thread for updates\nzEditor 1.6.1 b?i Zero. B?m OK �? xem th�m th�ng tin")) {
+		if (confirm("zEditor 1.6.1 by Zero. Click OK to visit my thread for updates\nzEditor 1.6.1 bởi Zero. Bấm OK để xem thêm thông tin")) {
 			window.open('http://devs.forumvi.com/t88-topic');
 		}
 	},
@@ -301,4 +301,7 @@ var zeditor = {
 		location.href = $('a[href^="/post?t="]').first().attr("href");
 	}
 };
-document.write('<div id="ze-editor" style="display:none"><div id="ze-edit" style="display:none"></div><form id="ze-editor-form" name="ze-editor" method="post" action="/post"><div id="editor-top"><div id="editor-tool"><span onclick="zeditor.add(\'[b]\',\'[/b]\')" class="editor-button-outer">' + zeditor.lang.bold_button + '</span><span onclick="zeditor.add(\'[i]\',\'[/i]\')"  class="editor-button-outer">' + zeditor.lang.italic_button + '</span><span onclick="zeditor.add(\'[u]\',\'[/u]\')"  class="editor-button-outer">' + zeditor.lang.underline_button + '</span><span onclick="zeditor.add(\'[strike]\',\'[/strike]\')"  class="editor-button-outer">' + zeditor.lang.strike_button + '</span><span class="editor-button-outer" onclick="zeditor.popup(this, \'ze-color\')">' + zeditor.lang.color_button + '</span><span class="editor-button-outer" onclick="zeditor.popup(this, \'ze-smiley\')">' + zeditor.lang.smiley_button + '</span><span class="editor-button-outer" onclick="zeditor.popup(this, \'ze-upload\')">' + zeditor.lang.upload_button + '</span><span class="editor-button-outer" onclick="zeditor.tag(this)">' + zeditor.lang.tag_button + '</span><span class="editor-button-outer" onclick="zeditor.copyright()">?</span></div></div><div id="ze-popups"><div id="ze-color"></div><div id="ze-smiley"></div><div id="ze-upload"><iframe src="http://imageshack.us/syndicate/widget.php" frameborder="0" scrolling="no"></iframe></div></div><div id="outer-preview"><div id="ze-preview" on
+document.write('<div id="ze-editor" style="display:none"><div id="ze-edit" style="display:none"></div><form id="ze-editor-form" name="ze-editor" method="post" action="/post"><div id="editor-top"><div id="editor-tool"><span onclick="zeditor.add(\'[b]\',\'[/b]\')" class="editor-button-outer">' + zeditor.lang.bold_button + '</span><span onclick="zeditor.add(\'[i]\',\'[/i]\')"  class="editor-button-outer">' + zeditor.lang.italic_button + '</span><span onclick="zeditor.add(\'[u]\',\'[/u]\')"  class="editor-button-outer">' + zeditor.lang.underline_button + '</span><span onclick="zeditor.add(\'[strike]\',\'[/strike]\')"  class="editor-button-outer">' + zeditor.lang.strike_button + '</span><span class="editor-button-outer" onclick="zeditor.popup(this, \'ze-color\')">' + zeditor.lang.color_button + '</span><span class="editor-button-outer" onclick="zeditor.popup(this, \'ze-smiley\')">' + zeditor.lang.smiley_button + '</span><span class="editor-button-outer" onclick="zeditor.popup(this, \'ze-upload\')">' + zeditor.lang.upload_button + '</span><span class="editor-button-outer" onclick="zeditor.tag(this)">' + zeditor.lang.tag_button + '</span><span class="editor-button-outer" onclick="zeditor.copyright()">?</span></div></div><div id="ze-popups"><div id="ze-color"></div><div id="ze-smiley"></div><div id="ze-upload"><iframe src="http://imageshack.us/syndicate/widget.php" frameborder="0" scrolling="no"></iframe></div></div><div id="outer-preview"><div id="ze-preview" ondblclick="zeditor.closePreview(this)"></div><div id="editor-loading" style="display: none"><img src="http://i11.servimg.com/u/f11/16/80/27/29/ajax-l10.gif" /><br>' + zeditor.lang.loading + '</div><textarea name="message" id="editor-textarea"></textarea></div><div id="editor-data"><input type="hidden" value="reply" name="mode"><input type="hidden" value="1" name="notify"></div><div id="editor-post-tool"><div id="editor-post-button"><span  id="editor-send-button" onclick="zeditor.post(this)">Send</span><span onclick="zeditor.preview(this)" id="editor-preview-button">' + zeditor.lang.preview_button + '</span><span onclick="zeditor.advance()">' + zeditor.lang.advance_button + '</span></div><div id="editor-mode"></div></div></form></div>');
+$(function () {
+	zeditor.ready()
+});
