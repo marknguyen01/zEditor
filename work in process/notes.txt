@@ -1,0 +1,4 @@
+Added Subject button (WIP)
+Fixed not being able to edit first post
+
+Work on the Mode button, and position popups
