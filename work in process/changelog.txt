@@ -1,8 +1,8 @@
 MAJOR:
 - Added Subject button which allows you to modifty the title
 - Popups will now position themselves
-- 
 
 MINOR:
 - Fixed not being able to edit the first post
 - Added zeditor.createSmilies function
+- Removed href from buttons
