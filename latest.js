@@ -289,7 +289,7 @@ zeditor.button('.zeditor-new:last ' + zeditor.button_dom);
 		})
 	},
 	copyright: function () {
-		if (confirm("zEditor 1.6.1 by Zero. Click OK to visit my thread for updates\nzEditor 1.6.1 bởi Zero. Bấm OK để xem thêm thông tin")) {
+		if (confirm("zEditor 1.6.2 by Zero. Click OK to visit my thread for updates\nzEditor 1.6.2 bởi Zero. Bấm OK để xem thêm thông tin")) {
 			window.open('http://devs.forumvi.com/t88-topic');
 		}
 	},
