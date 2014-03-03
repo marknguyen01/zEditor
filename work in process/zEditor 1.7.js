@@ -53,6 +53,10 @@ var zeditor = {
 			zeditor.button_dom = '.posting-icons'
 		}
 		$('.h3:contains("Quick reply:")').remove();
+		if (document.getElementById('ze-copyright') == null) {
+			$('#ze-editor').remove();
+			alert('Please put back the copyright button to use zEditor');
+		}
 		zeditor.textarea = document.getElementById('editor-textarea');
 		zeditor.subject = document.getElementById('editor-subject');
 		zeditor.mode = document.getElementById('editor-mode').getElementsByTagName('span')[1];
@@ -139,6 +143,7 @@ var zeditor = {
 	},
 	closePreview: function (a) {
 		$(a).hide();
+		zeditor.textarea.focus();
 		document.getElementById('editor-preview-button').innerHTML = zeditor.lang.preview_button;
 		document.getElementById('editor-top').setAttribute('style', 'height:38px; transform: scaleY(1);-webkit-transform:scaleY(1)');
 	},
@@ -285,14 +290,14 @@ var zeditor = {
 	},
 	replace: function (a) {
 		return a.replace(/\[tag\](.*?)\[\/tag\]/g, function (a, b) {
-			return '<a href="/profile?mode=viewprofile&u=' + b.replace(/ /g, "+") + '">@' + b + '</a>'
+			return '<a href="/profile?mode=viewprofile&u=' + b.replace(/ /g, "+") + '" onmouseover="zeditor.avatar(this, this.href)" class="ze-avatar">@' + b + '</a>'
 		}).replace(/:<\/cite>\[link="(\S+)"\]/gi, function (a, b) {
 			return ' ' + zeditor.lang.quote_message + ' <a href="' + b + '"> ' + b.split("#")[1] + '</a></cite>'
 		})
 	},
 	copyright: function () {
-		if (confirm("zEditor 1.7 by Zero. Click OK to visit my thread for updates\nzEditor 1.7 bởi Zero. Bấm OK để xem thêm thông tin")) {
-			window.open('http://devs.forumvi.com/t88-topic');
+		if (confirm("zEditor 1.7 by Zero\nClick OK for more details")) {
+			window.open('https://github.com/mysticzero/zEditor/blob/master/README.md');
 		}
 	},
 	loading: function (a) {
@@ -301,9 +306,16 @@ var zeditor = {
 	},
 	advance: function () {
 		location.href = $('a[href^="/post?t="]').first().attr("href");
+	},
+	avatar: function (a, b) {
+		if (a.getElementsByTagName('span')[0] == null) {
+			$.get(b, function (data) {
+				a.innerHTML += '<span>' + $(data).find('#profile-advanced-right img:first')[0].outerHTML + '</span>'
+			});
+		}
 	}
 };
-document.write('<div id="ze-editor" style="display:none"><form id="ze-editor-form" name="ze-editor" method="post" action="/post"><div id="editor-top"><div id="editor-tool"><span onclick="zeditor.add(\'[b]\',\'[/b]\')" class="editor-button-outer">' + zeditor.lang.bold_button + '</span><span onclick="zeditor.add(\'[i]\',\'[/i]\')"  class="editor-button-outer">' + zeditor.lang.italic_button + '</span><span onclick="zeditor.add(\'[u]\',\'[/u]\')"  class="editor-button-outer">' + zeditor.lang.underline_button + '</span><span onclick="zeditor.add(\'[strike]\',\'[/strike]\')"  class="editor-button-outer">' + zeditor.lang.strike_button + '</span><span class="editor-button-outer" onclick="zeditor.popup(\'ze-color\', event);zeditor.createColor()">' + zeditor.lang.color_button + '</span><span class="editor-button-outer" onclick="zeditor.popup(\'ze-smiley\', event);zeditor.createSmilies()">' + zeditor.lang.smiley_button + '</span><span class="editor-button-outer" onclick="zeditor.popup(\'ze-upload\', event)">' + zeditor.lang.upload_button + '</span><span class="editor-button-outer" onclick="zeditor.tag(this)">' + zeditor.lang.tag_button + '</span><span class="editor-button-outer" onclick="zeditor.copyright()">?</span></div></div><div id="ze-popups"><div id="ze-subject" class="ze-popups" style="display:none"><input id="editor-subject" type="text"></input></div><div id="ze-mode" class="ze-popups" style="display:none"><p><input type="radio" name="ze-mode">Reply</input><p><input type="radio" name="ze-mode">Quote</input><p><input type="radio" name="ze-mode">Edit</input></p></div><div id="ze-color" class="ze-popups" style="display:none"></div><div id="ze-smiley" class="ze-popups" style="display:none"></div><div id="ze-upload" class="ze-popups"  style="display:none"><iframe src="http://imageshack.us/syndicate/widget.php" frameborder="0" scrolling="no"></iframe></div></div><div id="outer-preview"><div id="ze-preview" ondblclick="zeditor.closePreview(this)"></div><div id="editor-loading" style="display: none"><img src="http://i11.servimg.com/u/f11/16/80/27/29/ajax-l10.gif" /><br>' + zeditor.lang.loading + '</div><textarea name="message" id="editor-textarea"></textarea></div><div id="editor-data"><input type="hidden" value="reply" name="mode"><input type="hidden" value="1" name="notify"></div><div id="editor-post-tool"><div id="editor-post-button"><span  id="editor-send-button" onclick="zeditor.post(this)">Send</span><span onclick="zeditor.preview(this)" id="editor-preview-button">' + zeditor.lang.preview_button + '</span><span onclick="zeditor.advance()">' + zeditor.lang.advance_button + '</span></div><div id="editor-mode"><span onclick="zeditor.popup(\'ze-subject\', event)">Subject</span><span onclick="zeditor.popup(\'ze-mode\', event)"></span></div></div></form></div>');
+document.write('<div id="ze-editor" style="display:none"><form id="ze-editor-form" name="ze-editor" method="post" action="/post"><div id="editor-top"><div id="editor-tool"><span onclick="zeditor.add(\'[b]\',\'[/b]\')" class="editor-button-outer">' + zeditor.lang.bold_button + '</span><span onclick="zeditor.add(\'[i]\',\'[/i]\')"  class="editor-button-outer">' + zeditor.lang.italic_button + '</span><span onclick="zeditor.add(\'[u]\',\'[/u]\')"  class="editor-button-outer">' + zeditor.lang.underline_button + '</span><span onclick="zeditor.add(\'[strike]\',\'[/strike]\')"  class="editor-button-outer">' + zeditor.lang.strike_button + '</span><span class="editor-button-outer" onclick="zeditor.popup(\'ze-color\', event);zeditor.createColor()">' + zeditor.lang.color_button + '</span><span class="editor-button-outer" onclick="zeditor.popup(\'ze-smiley\', event);zeditor.createSmilies()">' + zeditor.lang.smiley_button + '</span><span class="editor-button-outer" onclick="zeditor.popup(\'ze-upload\', event)">' + zeditor.lang.upload_button + '</span><span class="editor-button-outer" onclick="zeditor.tag(this)">' + zeditor.lang.tag_button + '</span><span class="editor-button-outer" onclick="zeditor.copyright()" id="ze-copyright">?</span></div></div><div id="ze-popups"><div id="ze-subject" class="ze-popups" style="display:none"><input id="editor-subject" type="text"></input></div><div id="ze-mode" class="ze-popups" style="display:none"><p><center>Choose your theme</center></p><p><input type="radio" name="ze-mode" checked="checked"> Light grey</input><p></div><div id="ze-color" class="ze-popups" style="display:none"></div><div id="ze-smiley" class="ze-popups" style="display:none"></div><div id="ze-upload" class="ze-popups"  style="display:none"><iframe src="http://imageshack.us/syndicate/widget.php" frameborder="0" scrolling="no"></iframe></div></div><div id="outer-preview"><div id="ze-preview" ondblclick="zeditor.closePreview(this)"></div><div id="editor-loading" style="display: none"><img src="http://i11.servimg.com/u/f11/16/80/27/29/ajax-l10.gif" /><br>' + zeditor.lang.loading + '</div><textarea name="message" id="editor-textarea"></textarea></div><div id="editor-data"><input type="hidden" value="reply" name="mode"><input type="hidden" value="1" name="notify"></div><div id="editor-post-tool"><div id="editor-post-button"><span  id="editor-send-button" onclick="zeditor.post(this)">Send</span><span onclick="zeditor.preview(this)" id="editor-preview-button">' + zeditor.lang.preview_button + '</span><span onclick="zeditor.advance()">' + zeditor.lang.advance_button + '</span></div><div id="editor-mode"><span onclick="zeditor.popup(\'ze-subject\', event)">Subject</span><span onclick="zeditor.popup(\'ze-mode\', event)"></span></div></div></form></div>');
 $(function () {
 	zeditor.ready()
 });

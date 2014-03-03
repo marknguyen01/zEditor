@@ -71,7 +71,7 @@
 }
 
 .pbutton {
-    cursor: pointer
+    cursor: pointer;
 }
 
 .ze-popups {
@@ -191,5 +191,23 @@
     text-shadow: -1px -1px 0 #B6B6B6, 1px -1px 0 #B6B6B6, -1px 1px 0 #B6B6B6, 1px 1px 0 #B6B6B6;
     z-index: 10;
     border: 1px solid #B6B6B6;
+}
+
+.ze-avatar span {
+    display: none;
+    padding: 4px;
+    margin-left: 8px;
+}
+
+.ze-avatar:hover span {
+    display: inline;
+    position: absolute;
+    border: 1px solid #cccccc;
+    background: #fff;
+}
+
+.ze-avatar img {
+    width: 80px;
+    height: 80px;
 }
 /* --------------- END zEditor -------------------- */
