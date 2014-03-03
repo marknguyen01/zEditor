@@ -1,0 +1,3 @@
+Fixed editor showing on the top of the page on phpBB3 and Invision
+Fixed buttons laying on top of each other on phpBB3 and Invision
+Fixed textarea being bigger than usual on some forums
