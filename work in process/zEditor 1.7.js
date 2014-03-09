@@ -68,7 +68,6 @@ var zeditor = {
 	},
 	quote: function (a) {
 		zeditor.loading('on');
-		zeditor.url = $('a[href^="/post?t="]').first().attr("href");
 		$.get(a.href, function (data) {
 			zeditor.textarea.value = $(data).find('#text_editor_textarea').val().replace(/]/, '][link="' + location.pathname + '#' + a.href.match(/[0-9]+/) + '"]');
 			zeditor.textarea.focus();
@@ -100,6 +99,7 @@ var zeditor = {
 			zeditor.mode.innerHTML = zeditor.lang.reply;
 			break;
 		case "quote":
+			zeditor.url = dom.href;
 			zeditor.quote(dom);
 			zeditor.mode.innerHTML = zeditor.lang.quote;
 			break;
@@ -148,6 +148,9 @@ var zeditor = {
 		document.getElementById('editor-top').setAttribute('style', 'height:38px; transform: scaleY(1);-webkit-transform:scaleY(1)');
 	},
 	post: function (a) {
+		if (zeditor.mode.innerHTML == zeditor.lang.quote) {
+			zeditor.url = $('a[href^="/post?t="]').first().attr("href")
+		}
 		if (zeditor.url) {
 			$.post(zeditor.url, {
 				'post': 'Send',
@@ -305,7 +308,9 @@ var zeditor = {
 		a == 'on' ? (b.style.display = '') : (b.style.display = 'none')
 	},
 	advance: function () {
-		location.href = $('a[href^="/post?t="]').first().attr("href");
+		if (confirm("All your current progress will be lost. Click OK to continue")) {
+			location.href = zeditor.url;
+		}
 	},
 	avatar: function (a, b) {
 		if (a.getElementsByTagName('span')[0] == null) {

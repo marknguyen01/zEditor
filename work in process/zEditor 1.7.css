@@ -1,5 +1,5 @@
 /* --------------- BEGIN zEditor -------------------- */
-#ze-color-info, #ze-editor, .pbutton {
+#ze-editor *:not(textarea) {
     -moz-user-select: none;
     -webkit-user-select: none;
 }
@@ -171,10 +171,6 @@
 .editor-button-outer:hover, #editor-post-button span:hover {
     background: -moz-linear-gradient(center top , #F2F2F2, #CCCCCC) repeat scroll 0 0 #CCCCCC;
     box-shadow: 0 0 1px rgba(0, 0, 0, 0.3) inset;
-}
-
-#quick_reply {
-    display: none !important;
 }
 
 #editor-loading {
