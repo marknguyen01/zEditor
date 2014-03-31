@@ -11,3 +11,5 @@ MINOR:
 - Fixed cursor not staying in the textarea after closing preview
 - Added go advanced for edit and quote
 - Added a notice message when go adavanced
+- Fixed reply box appearing on the top of the page
+- Changed width to from 65% to 75%

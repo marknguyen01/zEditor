@@ -40,7 +40,7 @@ var zeditor = {
 	ready: function () {
 		zeditor.post_dom = '.post';
 		if (zeditor.version == 'punbb') {
-			zeditor.message_dom = '.zeditor-message';
+			zeditor.message_dom = '.zeditor';
 			zeditor.preview_dom = '.entry-content';
 			zeditor.button_dom = '.post-options'
 		}
@@ -91,7 +91,7 @@ var zeditor = {
 		});
 	},
 	start: function (a, dom) {
-		$(zeditor.editor).appendTo($(dom).parents(zeditor.post_dom).find('.zeditor'));
+		$(zeditor.editor).appendTo($(dom).parents(zeditor.post_dom).find(zeditor.message_dom));
 		$(zeditor.editor).slideDown();
 		switch (a) {
 		case "reply":
