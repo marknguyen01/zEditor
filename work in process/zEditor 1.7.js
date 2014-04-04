@@ -199,9 +199,14 @@ var zeditor = {
 	popup: function (a, b) {
 		zeditor.textarea.focus();
 		x = document.getElementById(a);
+		y = document.getElementById('ze-editor').offsetWidth;
 		if (x.style.display == 'none') {
-			position = b.offsetX === undefined ? b.layerX - 100 : b.offsetX - 100;
-			x.setAttribute('style', 'display: block;left: ' + position + 'px');
+			position = b.offsetX === undefined ? b.layerX - 50 : b.offsetX - 50;
+			x.setAttribute('style', 'display: block; left: ' + position + 'px');
+			if (position + x.offsetWidth + 20 > y) {
+				position = position - 40;
+			}
+			x.style.left = position + 'px';
 		} else {
 			x.style.display = 'none';
 		}
@@ -261,7 +266,7 @@ var zeditor = {
 		document.getElementById('ze-smiley').style.display = 'none'
 	},
 	tag: function (a) {
-		var e = $(a).parents(zeditor.post_dom).find('a[href^="/u"]').eq(1).text();
+		var e = $(a).parents(zeditor.post_dom).find('a[href^="/u"]:not(:empty)').eq(0).text(); // eq(1)
 		zeditor.textarea.value += '[tag]' + e + '[/tag]';
 		if (e.length > 0) {
 			if (confirm(zeditor.lang.notify_message + ' ' + e + '?')) {

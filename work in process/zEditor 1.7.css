@@ -10,9 +10,11 @@
     border-radius: 5px;
     box-shadow: 0 0 3px rgba(0, 0, 0, 0.15);
     font-family: Verdana;
+    font-size: 12px;
     margin: 20px auto;
     padding: 5px 10px;
     width: 75%;
+    line-height: 1.3em;
     position: relative;
 }
 
@@ -79,7 +81,7 @@
     border: 1px solid #CCCCCC;
     max-height: 125px;
     max-width: 500px;
-    padding: 10px;
+    padding: 5px;
     position: absolute;
     z-index: 999;
 }
@@ -90,6 +92,7 @@
 
 #ze-smiley {
     overflow: auto;
+    width: 300px;
 }
 
 #ze-subject, #ze-mode {

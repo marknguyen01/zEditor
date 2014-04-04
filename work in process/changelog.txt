@@ -3,6 +3,7 @@ MAJOR:
 - Popups will now position themselves
 - Mode button is now functional and serves as a theme selector (not working yet)
 - Tagged user's avatar is now displayed next to his name (it takes 1-2 secs to load)
+- Popups will now "flip" when they are on top of the editor
 
 MINOR:
 - Fixed not being able to edit the first post
@@ -13,3 +14,5 @@ MINOR:
 - Added a notice message when go adavanced
 - Fixed reply box appearing on the top of the page
 - Changed width to from 65% to 75%
+- Fixed editor being bigger than it should be on phpbb3 and invision
+- Fixed user tagging feature not being able to the user name on phpbb3 and invision
