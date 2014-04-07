@@ -15,4 +15,5 @@ MINOR:
 - Fixed reply box appearing on the top of the page
 - Changed width to from 65% to 75%
 - Fixed editor being bigger than it should be on phpbb3 and invision
-- Fixed user tagging feature not being able to the user name on phpbb3 and invision
+- Fixed user tagging and pm function not being able to find the user name on phpbb3 and invision
+- Added a temporary Image button
