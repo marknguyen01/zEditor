@@ -9,6 +9,7 @@ var zeditor = {
 		loading: "Loading...",
 		flood_message: "You cannot send 2 posts at the same. Please wait",
 		error_message: "An unexpected error has occurred. Please refresh the page",
+		no_message: "Please etner your message",
 		notify_message: "Would you like to notify",
 		quote_message: "at Post",
 		tag_message_title: "You've been tagged in",
@@ -27,8 +28,10 @@ var zeditor = {
 		color_button: "Color",
 		smiley_button: "Smilies",
 		image_button: "Image",
-                upload_button: "Upload",
-		tag_button: "Tag"
+		upload_button: "Imgur",
+		tag_button: "Tag",
+		imgur_placeholder1: "Choose file(s)",
+		imgur_placeholder2: "External URL",
 	},
 	editor: 0,
 	mode: 0,
@@ -54,21 +57,24 @@ var zeditor = {
 			zeditor.button_dom = '.posting-icons'
 		}
 		$('.h3:contains("Quick reply:")').remove();
-		if (document.getElementById('ze-copyright') == null) {
-			$('#ze-editor').remove();
-			alert('Please put back the copyright "?" button to use zEditor');
-		}
-		if (!window.Jquery) { // Check if Jquery is loaded
-			alert('JQuery is required to run this. Visit http://www.jquery.com/ for more details')
+		if (!window.jQuery) { // Check if jQuery is loaded
+			alert('JQuery is required to run this. Visit http://www.jquery.com/ for more details');
+		} else { // Executes these main functions if jQuery is loaded
+			zeditor.button(zeditor.button_dom);
+			for (var a = $(zeditor.message_dom), i = 0, l = a.length; i < l; i++) {
+				a[i].innerHTML = zeditor.replace(a[i].innerHTML)
+			}
+			$(document.body).append('<div id="ze-editor" style="display:none"><form id="ze-editor-form" name="ze-editor" method="post" action="/post"><div id="editor-top"><div id="editor-tool"><span onclick="zeditor.add(\'[b]\',\'[/b]\')" class="editor-button-outer">' + zeditor.lang.bold_button + '</span><span onclick="zeditor.add(\'[i]\',\'[/i]\')"  class="editor-button-outer">' + zeditor.lang.italic_button + '</span><span onclick="zeditor.add(\'[u]\',\'[/u]\')"  class="editor-button-outer">' + zeditor.lang.underline_button + '</span><span onclick="zeditor.add(\'[strike]\',\'[/strike]\')"  class="editor-button-outer">' + zeditor.lang.strike_button + '</span><span class="editor-button-outer" onclick="zeditor.popup(\'ze-color\', this);zeditor.createColor()">' + zeditor.lang.color_button + '</span><span class="editor-button-outer" onclick="zeditor.popup(\'ze-smiley\', this);zeditor.createSmilies()">' + zeditor.lang.smiley_button + '</span><span class="editor-button-outer" onclick="zeditor.popup(\'ze-image\', this)">' + zeditor.lang.image_button + '</span><span class="editor-button-outer" onclick="zeditor.popup(\'ze-upload\', this);zeditor.imgur.prepare()">' + zeditor.lang.upload_button + '</span><span class="editor-button-outer" onclick="zeditor.tag(this)">' + zeditor.lang.tag_button + '</span><span class="editor-button-outer" onclick="zeditor.copyright()" id="ze-copyright">?</span></div></div><div id="ze-popups"><div id="ze-subject" class="ze-popups" style="display:none"><input id="editor-subject" type="text"></input></div><div id="ze-mode" class="ze-popups" style="display:none"><p><center>Choose your theme</center></p><p><input type="radio" name="ze-mode" checked="checked"> Light grey</input><p></div><div id="ze-color" class="ze-popups" style="display:none"></div><div id="ze-smiley" class="ze-popups" style="display:none"></div><div id="ze-image" class="ze-popups" style="display:none"><input type="text" style="height:20px;border:1px solid #BDBDBD" /><div><br><span class="editor-button-confirm" onclick="zeditor.popup(\'ze-image\', this);zeditor.add(\'[img]\'+this.parentNode.previousSibling.value, \'[/img]\');this.parentNode.previousSibling.value=\'\'">OK</span></div></div><div id="ze-upload" class="ze-popups" style="display:none"><div id="ze-imgur"><span id="ze-imgur-mode" class="editor-button-confirm" onclick="zeditor.imgur.mode()">Mode</span><span onclick="zeditor.imgur.files()"><input id="ze-imgur-input" type="input" placeholder="' + zeditor.lang.imgur_placeholder1 + '" value="" disabled></span><span id="ze-imgur-submit" class="editor-button-confirm" onclick="zeditor.imgur.submit(this)">Submit</span><input type="file" id="ze-imgur-placeholder" multiple><div id="ze-imgur-status"></div><div id="ze-imgur-images"></div></div></div></div><div id="outer-preview"><div id="ze-preview" ondblclick="zeditor.closePreview(this)"></div><div id="editor-loading" style="display: none"><img src="http://i11.servimg.com/u/f11/16/80/27/29/ajax-l10.gif" /><br>' + zeditor.lang.loading + '</div><textarea name="message" id="editor-textarea"></textarea></div><div id="editor-data"><input type="hidden" value="reply" name="mode"><input type="hidden" value="1" name="notify"></div><div id="editor-post-tool"><div id="editor-post-button"><span  id="editor-send-button" onclick="zeditor.post(this)">Send</span><span onclick="zeditor.preview(this)" id="editor-preview-button">' + zeditor.lang.preview_button + '</span><span onclick="zeditor.advance()">' + zeditor.lang.advance_button + '</span></div><div id="editor-mode"><span onclick="zeditor.popup(\'ze-subject\', this)">Subject</span><span onclick="zeditor.popup(\'ze-mode\', this)"></span></div></div></form></div>');
+			if (document.getElementById('ze-copyright') == null) {
+				$('#ze-editor').remove();
+				alert('Please put back the copyright "?" button to use zEditor');
+			}
 		}
 		zeditor.textarea = document.getElementById('editor-textarea');
 		zeditor.subject = document.getElementById('editor-subject');
 		zeditor.mode = document.getElementById('editor-mode').getElementsByTagName('span')[1];
 		zeditor.editor = document.getElementById('ze-editor');
-		zeditor.button(zeditor.button_dom);
-		for (var a = $(zeditor.message_dom), i = 0, l = a.length; i < l; i++) {
-			a[i].innerHTML = zeditor.replace(a[i].innerHTML)
-		}
+
 	},
 	quote: function (a) {
 		zeditor.loading('on');
@@ -156,25 +162,29 @@ var zeditor = {
 			zeditor.url = $('a[href^="/post?t="]').first().attr("href")
 		}
 		if (zeditor.url) {
-			$.post(zeditor.url, {
-				'post': 'Send',
-				'message': zeditor.textarea.value,
-				'subject': zeditor.subject.value
-			}, function (data) {
-				var en = "Your message has been entered successfully";
-				vi = "Bài của bạn đã được chuyển";
-				b = (data.indexOf(en) < 0) ? vi : en;
-				index = data.indexOf(b);
-				if (data.indexOf("Flood control") > 0) {
-					alert(zeditor.lang.flood_message)
-				} else if (data.indexOf('A new message') > 0) {
-					$.post('/post', $(data).find("form[name='post']").serialize() + '&post=1', function (c) {
-						(index < 0) ? alert(zeditor.lang.error_message) : zeditor.newPost($(c).find('p:contains("' + b + '") a:first').attr('href'))
-					})
-				} else {
-					(index < 0) ? alert(zeditor.lang.error_message) : zeditor.newPost($(data).find('p:contains("' + b + '") a:first').attr('href'))
-				}
-			})
+			if (zeditor.textarea.value == 0) {
+				alert(zeditor.lang.no_message);
+			} else {
+				$.post(zeditor.url, {
+					'post': 'Send',
+					'message': zeditor.textarea.value,
+					'subject': zeditor.subject.value
+				}, function (data) {
+					var en = "Your message has been entered successfully";
+					vi = "Bài của bạn đã được chuyển";
+					b = (data.indexOf(en) < 0) ? vi : en;
+					index = data.indexOf(b);
+					if (data.indexOf("Flood control") > 0) {
+						alert(zeditor.lang.flood_message)
+					} else if (data.indexOf('A new message') > 0) {
+						$.post('/post', $(data).find("form[name='post']").serialize() + '&post=1', function (c) {
+							(index < 0) ? alert(zeditor.lang.error_message) : zeditor.newPost($(c).find('p:contains("' + b + '") a:first').attr('href'))
+						})
+					} else {
+						(index < 0) ? alert(zeditor.lang.error_message) : zeditor.newPost($(data).find('p:contains("' + b + '") a:first').attr('href'))
+					}
+				})
+			}
 		} else {
 			zeditor.pm(a)
 		}
@@ -206,11 +216,11 @@ var zeditor = {
 		y = document.getElementById('ze-editor').offsetWidth;
 		if (x.style.display == 'none') {
 			position = $(b).position().left;
-			x.setAttribute('style', 'display: block; left: ' + position + 'px');
+			x.setAttribute('style', 'display: block');
 			if (position + x.offsetWidth + 20 > y) {
-				position = position - 40;
+				position = y - x.offsetWidth - 20;
 			}
-			x.style.left = position + 'px';
+			x.style.left = position - 30 + 'px';
 		} else {
 			x.style.display = 'none';
 		}
@@ -327,9 +337,83 @@ var zeditor = {
 				a.innerHTML += '<span>' + $(data).find('#profile-advanced-right img:first')[0].outerHTML + '</span>'
 			});
 		}
-	}
+	},
+	imgur: {
+		input: 0,
+		holder: [],
+		prepare: function () {
+			zeditor.imgur.input = document.getElementById('ze-imgur-input');
+			document.getElementById('ze-imgur-placeholder').addEventListener("change", function (e) {
+				var a = e.target.files;
+				for (i = 0; i < a.length; i++) {
+					if (a[i].type.match(/image.*/)) {
+						zeditor.imgur.holder.push(a[i]);
+					}
+					zeditor.imgur.input.value = this.value;
+				}
+			}, false);
+		},
+		mode: function () {
+			if (zeditor.imgur.input.placeholder == zeditor.lang.imgur_placeholder1) {
+				zeditor.imgur.input.placeholder = zeditor.lang.imgur_placeholder2;
+				zeditor.imgur.input.disabled = false;
+				zeditor.imgur.input.parentNode.removeAttribute('onclick');
+				zeditor.imgur.input.value = '';
+			} else {
+				zeditor.imgur.input.placeholder = zeditor.lang.imgur_placeholder1;
+				zeditor.imgur.input.disabled = true;
+				zeditor.imgur.input.parentNode.setAttribute('onclick', 'zeditor.imgur.files()');
+				zeditor.imgur.input.value = '';
+			}
+		},
+		files: function () {
+			document.getElementById('ze-imgur-placeholder').click();
+		},
+		upload: function (file) {
+			document.body.className = "uploading";
+			var fd = new FormData();
+			fd.append("image", file);
+			fd.append("key", "6528448c258cff474ca9701c5bab6927");
+			var xhr = new XMLHttpRequest();
+			var output = document.getElementById("ze-imgur-images");
+			xhr.open("POST", "http://api.imgur.com/2/upload.json");
+			xhr.onload = function () {
+				if (this.status == 400) {
+					document.getElementById("ze-imgur-status").innerHTML = JSON.parse(xhr.responseText).error.message;
+				} else {
+					var links = JSON.parse(xhr.responseText).upload.links;
+					var dimage = links.small_square;
+					var dlink = links.imgur_page;
+
+					var a = document.createElement("a");
+					a.href = dlink;
+
+					var img = document.createElement("img");
+					img.src = dimage;
+
+					a.appendChild(img);
+					output.appendChild(a);
+
+					document.body.className = "uploaded";
+				}
+
+			};
+			xhr.send(fd);
+		},
+		submit: function () {
+			if (zeditor.imgur.input.placeholder == zeditor.lang.imgur_placeholder1) {
+				for (var i = 0; i < zeditor.imgur.holder.length; i++) {
+					zeditor.imgur.upload(zeditor.imgur.holder[i])
+				}
+			} else {
+				//if (.match(/\.jpg|\.gif|\.jpeg|\.png/)){
+				zeditor.imgur.upload(document.getElementById('ze-imgur-input').value);
+				//}
+			}
+		},
+	},
+
 };
-document.write('<div id="ze-editor" style="display:none"><form id="ze-editor-form" name="ze-editor" method="post" action="/post"><div id="editor-top"><div id="editor-tool"><span onclick="zeditor.add(\'[b]\',\'[/b]\')" class="editor-button-outer">' + zeditor.lang.bold_button + '</span><span onclick="zeditor.add(\'[i]\',\'[/i]\')"  class="editor-button-outer">' + zeditor.lang.italic_button + '</span><span onclick="zeditor.add(\'[u]\',\'[/u]\')"  class="editor-button-outer">' + zeditor.lang.underline_button + '</span><span onclick="zeditor.add(\'[strike]\',\'[/strike]\')"  class="editor-button-outer">' + zeditor.lang.strike_button + '</span><span class="editor-button-outer" onclick="zeditor.popup(\'ze-color\', this);zeditor.createColor()">' + zeditor.lang.color_button + '</span><span class="editor-button-outer" onclick="zeditor.popup(\'ze-smiley\', this);zeditor.createSmilies()">' + zeditor.lang.smiley_button + '</span><span class="editor-button-outer" onclick="zeditor.popup(\'ze-image\', this)">' + zeditor.lang.image_button + '</span><span class="editor-button-outer" onclick="zeditor.popup(\'ze-upload\', this)">' + zeditor.lang.upload_button + '</span><span class="editor-button-outer" onclick="zeditor.tag(this)">' + zeditor.lang.tag_button + '</span><span class="editor-button-outer" onclick="zeditor.copyright()" id="ze-copyright">?</span></div></div><div id="ze-popups"><div id="ze-subject" class="ze-popups" style="display:none"><input id="editor-subject" type="text"></input></div><div id="ze-mode" class="ze-popups" style="display:none"><p><center>Choose your theme</center></p><p><input type="radio" name="ze-mode" checked="checked"> Light grey</input><p></div><div id="ze-color" class="ze-popups" style="display:none"></div><div id="ze-smiley" class="ze-popups" style="display:none"></div><div id="ze-image" class="ze-popups" style="display:none"><input type="text" style="height:20px;border:1px solid #BDBDBD" /><div><br><span class="editor-button-confirm" onclick="zeditor.popup(\'ze-image\', this);zeditor.add(\'[img]\'+this.parentNode.previousSibling.value, \'[/img]\');this.parentNode.previousSibling.value=\'\'">OK</span></div></div><div id="ze-upload" class="ze-popups"  style="display:none"><iframe src="http://imageshack.us/syndicate/widget.php" frameborder="0" scrolling="no"></iframe></div></div><div id="outer-preview"><div id="ze-preview" ondblclick="zeditor.closePreview(this)"></div><div id="editor-loading" style="display: none"><img src="http://i11.servimg.com/u/f11/16/80/27/29/ajax-l10.gif" /><br>' + zeditor.lang.loading + '</div><textarea name="message" id="editor-textarea"></textarea></div><div id="editor-data"><input type="hidden" value="reply" name="mode"><input type="hidden" value="1" name="notify"></div><div id="editor-post-tool"><div id="editor-post-button"><span  id="editor-send-button" onclick="zeditor.post(this)">Send</span><span onclick="zeditor.preview(this)" id="editor-preview-button">' + zeditor.lang.preview_button + '</span><span onclick="zeditor.advance()">' + zeditor.lang.advance_button + '</span></div><div id="editor-mode"><span onclick="zeditor.popup(\'ze-subject\', this)">Subject</span><span onclick="zeditor.popup(\'ze-mode\', this)"></span></div></div></form></div>');
 $(function () {
 	zeditor.ready()
 });

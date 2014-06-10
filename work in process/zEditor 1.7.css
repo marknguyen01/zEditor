@@ -121,6 +121,7 @@
     width: 60px;
     float: left;
     text-transform: uppercase;
+    line-height: 20px;
 }
 
 .editor-button-confirm {
@@ -210,4 +211,14 @@
     width: 80px;
     height: 80px;
 }
+
+#ze-imgur-placeholder {
+    visibility: collapse;
+    width: 0px;
+}
+#ze-imgur-input {
+  width: 350px;
+  height: 18px
+}
+
 /* --------------- END zEditor -------------------- */
