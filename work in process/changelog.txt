@@ -4,7 +4,7 @@ MAJOR:
 - Mode button is now functional and serves as a theme selector (not working yet)
 - Tagged user's avatar is now displayed next to his name (it takes 1-2 secs to load)
 - Popups will now "flip" when they are on top of the editor
-- Added IMGUR uploader (WIP, only for chrome, there are still a few critical bugs in firefox)
+- Added IMGUR uploader (only for chrome atm)
 
 MINOR:
 - Fixed not being able to edit the first post
@@ -19,3 +19,5 @@ MINOR:
 - Fixed user tagging and pm function not being able to find the user name on phpbb3 and invision
 - Added a temporary Image button
 - Sending messages is no longer possible if the textarea is blank
+- Fixed alert function for unauthorized forms
+- Preview will now close itself after the post message is successfully sent

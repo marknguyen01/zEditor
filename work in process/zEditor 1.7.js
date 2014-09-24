@@ -33,27 +33,26 @@ var zeditor = {
 		imgur_placeholder1: "Choose file(s)",
 		imgur_placeholder2: "External URL",
 	},
+	post_dom: '.post',
+	message_dom: '.zeditor-message',
+	button_dom: '.zeditor-buttons',
+	preview_dom: 0,
+	////////////////////////////////////////////////////////////////////////////////////////////////////////
 	editor: 0,
 	mode: 0,
 	url: 0,
 	textarea: 0,
-	post_dom: 0,
-	message_dom: 0,
-	preview_dom: 0,
-	button_dom: 0,
 	ready: function () {
-		zeditor.post_dom = '.post';
 		if (zeditor.version == 'punbb') {
-			zeditor.message_dom = '.zeditor';
 			zeditor.preview_dom = '.entry-content';
 			zeditor.button_dom = '.post-options'
 		}
 		if (zeditor.version == 'phpbb3') {
-			zeditor.preview_dom = zeditor.message_dom = '.content';
+			zeditor.preview_dom = '.content';
 			zeditor.button_dom = '.profile-icons'
 		}
 		if (zeditor.version == 'invision') {
-			zeditor.preview_dom = zeditor.message_dom = '.post-entry';
+			zeditor.preview_dom = '.post-entry';
 			zeditor.button_dom = '.posting-icons'
 		}
 		$('.h3:contains("Quick reply:")').remove();
@@ -170,7 +169,7 @@ var zeditor = {
 					'message': zeditor.textarea.value,
 					'subject': zeditor.subject.value
 				}, function (data) {
-					var en = "Your message has been entered successfully";
+					var en = "Your message has been entered successfully",
 					vi = "Bài của bạn đã được chuyển";
 					b = (data.indexOf(en) < 0) ? vi : en;
 					index = data.indexOf(b);
@@ -178,10 +177,10 @@ var zeditor = {
 						alert(zeditor.lang.flood_message)
 					} else if (data.indexOf('A new message') > 0) {
 						$.post('/post', $(data).find("form[name='post']").serialize() + '&post=1', function (c) {
-							(index < 0) ? alert(zeditor.lang.error_message) : zeditor.newPost($(c).find('p:contains("' + b + '") a:first').attr('href'))
+							(index < 0) ? alert(zeditor.lang.error_message) : zeditor.newPost($(c).find('p:contains("' + b + '") a:first').attr('href'));zeditor.closePreview('#ze-preview')
 						})
 					} else {
-						(index < 0) ? alert(zeditor.lang.error_message) : zeditor.newPost($(data).find('p:contains("' + b + '") a:first').attr('href'))
+						(index < 0) ? alert(zeditor.lang.error_message) : zeditor.newPost($(data).find('p:contains("' + b + '") a:first').attr('href'));zeditor.closePreview('#ze-preview')
 					}
 				})
 			}
