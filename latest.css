@@ -1,5 +1,5 @@
-/* ---------------zEditor-------------------- */
-#ze-color-info, #ze-editor {
+/* --------------- BEGIN zEditor -------------------- */
+#ze-editor *:not(textarea) {
     -moz-user-select: none;
     -webkit-user-select: none;
 }
@@ -10,9 +10,12 @@
     border-radius: 5px;
     box-shadow: 0 0 3px rgba(0, 0, 0, 0.15);
     font-family: Verdana;
+    font-size: 12px;
     margin: 20px auto;
     padding: 5px 10px;
-    width: 65%;
+    width: 75%;
+    line-height: 1.3em;
+    position: relative;
 }
 
 #editor-top {
@@ -36,10 +39,6 @@
 
 #editor-mode {
     float: right;
-    font-weight: bold;
-    color: #4C4C4C;
-    text-shadow: 0 1px 0 #FFFFFF;
-    line-height: 28px;
 }
 
 #ze-preview {
@@ -73,24 +72,31 @@
     display: block;
 }
 
-#ze-smiley, #ze-color, #ze-upload {
+.pbutton {
+    cursor: pointer;
+}
+
+.ze-popups {
     background-color: #F7F7F7;
     border: 1px solid #CCCCCC;
-    margin: 25px 0 0 20px;
-    max-height: 125px;
+    max-height: 135px;
     max-width: 500px;
-    padding: 10px;
+    padding: 5px;
     position: absolute;
     z-index: 999;
-    display: none;
+}
+
+.ze-popups:not(#ze-subject):not(#ze-mode) {
+    top: 60px;
 }
 
 #ze-smiley {
     overflow: auto;
+    width: 300px;
 }
 
-#ze-smiley {
-    margin-left: 130px;
+#ze-subject, #ze-mode {
+    bottom: 60px;
 }
 
 #ze-color-info {
@@ -103,7 +109,7 @@
     cursor: pointer;
 }
 
-.ze-color-input, #ze-color-submit {
+.ze-color-input, .editor-button-confirm {
     background: 0 0 #F3F3F3;
     border: 1px solid #BDBDBD;
     border-radius: 3px;
@@ -117,7 +123,7 @@
     text-transform: uppercase;
 }
 
-#ze-color-submit {
+.editor-button-confirm {
     float: right;
     text-align: center;
     color: #000;
@@ -136,6 +142,7 @@
     width: 43px;
     right: 0;
     position: absolute;
+    padding: 0 !important;
 }
 
 .ze-color-input div {
@@ -151,7 +158,7 @@
     left: 0;
 }
 
-.editor-button-outer, #editor-post-button span {
+.editor-button-outer, #editor-post-button span, #editor-mode span {
     background: linear-gradient(#FFFFFF, #E4E4E4);
     border: 1px solid #A6A6A6;
     border-radius: 4px;
@@ -170,10 +177,6 @@
     box-shadow: 0 0 1px rgba(0, 0, 0, 0.3) inset;
 }
 
-#quick_reply {
-    display: none !important;
-}
-
 #editor-loading {
     background: #DCE1DE;
     border-radius: 4px;
@@ -189,3 +192,51 @@
     z-index: 10;
     border: 1px solid #B6B6B6;
 }
+
+.ze-avatar span {
+    display: none;
+    padding: 4px;
+    margin-left: 8px;
+}
+
+.ze-avatar:hover span {
+    display: inline;
+    position: absolute;
+    border: 1px solid #cccccc;
+    background: #fff;
+}
+
+.ze-avatar img {
+    width: 80px;
+    height: 80px;
+}
+<<<<<<< HEAD
+
+#ze-imgur-placeholder {
+    visibility: collapse;
+    width: 0px;
+}
+
+#ze-imgur-input {
+    width: 350px;
+    height: 18px;
+}
+
+#ze-imgur-images {
+    overflow: auto;
+    max-height: 110px;
+    margin-top: 5px;
+}
+
+#ze-imgur-images a {
+    float: left;
+    width: 20%;
+    border: 1px solid #BDBDBD;
+    margin: 5px;
+}
+
+#ze-imgur-images a img {
+    width: 100%;
+    height: inherit;
+}
+/* --------------- END zEditor -------------------- */

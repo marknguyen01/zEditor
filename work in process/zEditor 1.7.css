@@ -79,7 +79,7 @@
 .ze-popups {
     background-color: #F7F7F7;
     border: 1px solid #CCCCCC;
-    max-height: 125px;
+    max-height: 135px;
     max-width: 500px;
     padding: 5px;
     position: absolute;
@@ -121,7 +121,6 @@
     width: 60px;
     float: left;
     text-transform: uppercase;
-    line-height: 20px;
 }
 
 .editor-button-confirm {
@@ -211,14 +210,33 @@
     width: 80px;
     height: 80px;
 }
+<<<<<<< HEAD
 
 #ze-imgur-placeholder {
     visibility: collapse;
     width: 0px;
 }
+
 #ze-imgur-input {
-  width: 350px;
-  height: 18px
+    width: 350px;
+    height: 18px;
 }
 
+#ze-imgur-images {
+    overflow: auto;
+    max-height: 110px;
+    margin-top: 5px;
+}
+
+#ze-imgur-images a {
+    float: left;
+    width: 20%;
+    border: 1px solid #BDBDBD;
+    margin: 5px;
+}
+
+#ze-imgur-images a img {
+    width: 100%;
+    height: inherit;
+}
 /* --------------- END zEditor -------------------- */
