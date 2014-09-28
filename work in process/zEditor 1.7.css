@@ -5,9 +5,8 @@
 }
 
 #ze-editor {
-    background: linear-gradient(#F5F5F5, #CFD1CF);
+    background: linear-gradient(#ffffff, #cfd1cf);
     border: 1px solid #B6B6B6;
-    border-radius: 5px;
     box-shadow: 0 0 3px rgba(0, 0, 0, 0.15);
     font-family: Verdana;
     font-size: 12px;
@@ -112,7 +111,6 @@
 .ze-color-input, .editor-button-confirm {
     background: 0 0 #F3F3F3;
     border: 1px solid #BDBDBD;
-    border-radius: 3px;
     color: #B8B8B8;
     font-size: 12px;
     height: 20px;
@@ -121,6 +119,7 @@
     width: 60px;
     float: left;
     text-transform: uppercase;
+    line-height: 20px;
 }
 
 .editor-button-confirm {
@@ -161,13 +160,12 @@
 .editor-button-outer, #editor-post-button span, #editor-mode span {
     background: linear-gradient(#FFFFFF, #E4E4E4);
     border: 1px solid #A6A6A6;
-    border-radius: 4px;
     box-shadow: 0 10px 15px #FFFFFF inset;
     color: #504F4F !important;
     cursor: pointer;
     display: block;
     float: left;
-    margin: 4px;
+    margin: 2px 4px;
     padding: 4px;
     text-shadow: 0 2px 0 #E9E9E9;
 }
@@ -210,7 +208,6 @@
     width: 80px;
     height: 80px;
 }
-<<<<<<< HEAD
 
 #ze-imgur-placeholder {
     visibility: collapse;

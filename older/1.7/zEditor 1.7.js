@@ -28,12 +28,11 @@ var zeditor = {
 		color_button: "Color",
 		smiley_button: "Smilies",
 		image_button: "Image",
-		upload_button: "Upload",
+		upload_button: "Imgur",
 		tag_button: "Tag",
 		imgur_placeholder1: "Choose file(s)",
 		imgur_placeholder2: "External URL",
 	},
-	imgur_key: '6528448c258cff474ca9701c5bab6927',
 	post_dom: '.post',
 	message_dom: '.zeditor-message',
 	button_dom: '.zeditor-buttons',
@@ -280,7 +279,7 @@ var zeditor = {
 		document.getElementById('ze-smiley').style.display = 'none'
 	},
 	tag: function (a) {
-		var e = $(a).parents(zeditor.post_dom).find('a[href^="/u"]:has(span)').eq(0).text(); // eq(1)
+		var e = $(a).parents(zeditor.post_dom).find('a[href^="/u"]:not(:empty)').eq(0).text(); // eq(1)
 		zeditor.textarea.value += '[tag]' + e + '[/tag]';
 		if (e.length > 0) {
 			if (confirm(zeditor.lang.notify_message + ' ' + e + '?')) {
@@ -318,23 +317,19 @@ var zeditor = {
 		})
 	},
 	copyright: function () {
-		if (confirm("zEditor 1.7.1 by Zero\nClick OK for more details")) {
-			window.open('https://github.com/mysticzero/zEditor/');
+		if (confirm("zEditor 1.7 by Zero\nClick OK for more details")) {
+			window.open('https://github.com/mysticzero/zEditor/blob/master/README.md');
 		}
 	},
 	loading: function (a) {
 		b = document.getElementById('editor-loading');
 		a == 'on' ? (b.style.display = '') : (b.style.display = 'none')
 	},
-    advance: function() {
-        if (zeditor.textarea.value != '') {
-            if (confirm("All your current progress will be lost. Click OK to continue")) {
-                location.href = zeditor.url;
-            }
-        } else {
-            location.href = zeditor.url;
-        }
-    },
+	advance: function () {
+		if (confirm("All your current progress will be lost. Click OK to continue")) {
+			location.href = zeditor.url;
+		}
+	},
 	avatar: function (a, b) {
 		if (a.getElementsByTagName('span')[0] == null) {
 			$.get(b, function (data) {
@@ -377,7 +372,7 @@ var zeditor = {
 			document.body.className = "uploading";
 			var fd = new FormData();
 			fd.append("image", file);
-			fd.append("key", imgur_key);
+			fd.append("key", "6528448c258cff474ca9701c5bab6927");
 			var xhr = new XMLHttpRequest();
 			var output = document.getElementById("ze-imgur-images");
 			xhr.open("POST", "http://api.imgur.com/2/upload.json");
