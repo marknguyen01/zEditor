@@ -11,6 +11,7 @@ MAJOR:
 - Tagged user's avatar is now displayed next to his name (it takes 1-2 secs to load)
 - Popups will now "flip" when they are on top of the editor
 - Added IMGUR uploader (only for chrome atm)
+
 MINOR:
 - Fixed not being able to edit the first post
 - Added zeditor.createSmilies function
