@@ -377,7 +377,7 @@ var zeditor = {
 			document.body.className = "uploading";
 			var fd = new FormData();
 			fd.append("image", file);
-			fd.append("key", imgur_key);
+			fd.append("key", zeditor.imgur_key);
 			var xhr = new XMLHttpRequest();
 			var output = document.getElementById("ze-imgur-images");
 			xhr.open("POST", "http://api.imgur.com/2/upload.json");
@@ -391,7 +391,10 @@ var zeditor = {
 
 					var a = document.createElement("a");
 					a.href = dlink;
-
+					a.addEventListener("click", function(event){
+						event.preventDefault();
+						zeditor.textarea.value += '[img]' + this.firstChild.src.replace('s.', '.') + '[/img]'
+					});
 					var img = document.createElement("img");
 					img.src = dimage;
 
