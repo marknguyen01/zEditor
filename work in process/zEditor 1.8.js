@@ -43,7 +43,7 @@ var zeditor = {
 	mode: 0,
 	url: 0,
 	textarea: 0,
-	ready: function () {
+	ready: function() {
 		if (zeditor.version == 'punbb') {
 			zeditor.preview_dom = '.entry-content';
 			zeditor.button_dom = '.post-options'
@@ -76,56 +76,56 @@ var zeditor = {
 		zeditor.editor = document.getElementById('ze-editor');
 
 	},
-	quote: function (a) {
+	quote: function(a) {
 		zeditor.loading('on');
-		$.get(a.href, function (data) {
+		$.get(a.href, function(data) {
 			zeditor.textarea.value = $(data).find('#text_editor_textarea').val().replace(/]/, '][link="' + location.pathname + '#' + a.href.match(/[0-9]+/) + '"]');
 			zeditor.textarea.focus();
 			zeditor.loading('off')
 		});
 	},
-	edit: function (a) {
+	edit: function(a) {
 		zeditor.loading('on');
 		zeditor.url = a.href;
-		$.get(a.href, function (data) {
+		$.get(a.href, function(data) {
 			zeditor.textarea.value = $(data).find('#text_editor_textarea').val();
 			zeditor.subject.value = $(data).find('input[name="subject"]').val();
 			zeditor.textarea.focus();
 			zeditor.loading('off')
 		});
 	},
-	button: function (where) {
-		$(where).each(function () {
+	button: function(where) {
+		$(where).each(function() {
 			$(this).find('a[href*="quote"]').attr('onclick', 'zeditor.start(\'quote\', this); return false').parent().prepend('<a class="pbutton" onclick="zeditor.start(\'reply\', this)">' + zeditor.lang.reply_button + '</a><a class="pbutton" onclick="zeditor.start(\'pm\', this)">' + zeditor.lang.pm_button + '</a>');
 			$(this).find('a[href*="editpost"]').attr('onclick', 'zeditor.start(\'edit\', this); return false')
 		});
 	},
-	start: function (a, dom) {
+	start: function(a, dom) {
 		$(zeditor.editor).appendTo($(dom).parents(zeditor.post_dom).find(zeditor.message_dom));
 		$(zeditor.editor).slideDown();
 		switch (a) {
-		case "reply":
-			zeditor.url = $('a[href^="/post?t="]').first().attr("href");
-			zeditor.mode.innerHTML = zeditor.lang.reply;
-			break;
-		case "quote":
-			zeditor.url = dom.href;
-			zeditor.quote(dom);
-			zeditor.mode.innerHTML = zeditor.lang.quote;
-			break;
-		case "edit":
-			zeditor.edit(dom);
-			zeditor.mode.innerHTML = zeditor.lang.edit;
-			break;
-		case "pm":
-			zeditor.url = !1;
-			zeditor.mode.innerHTML = zeditor.lang.pm;
-			break;
+			case "reply":
+				zeditor.url = $('a[href^="/post?t="]').first().attr("href");
+				zeditor.mode.innerHTML = zeditor.lang.reply;
+				break;
+			case "quote":
+				zeditor.url = dom.href;
+				zeditor.quote(dom);
+				zeditor.mode.innerHTML = zeditor.lang.quote;
+				break;
+			case "edit":
+				zeditor.edit(dom);
+				zeditor.mode.innerHTML = zeditor.lang.edit;
+				break;
+			case "pm":
+				zeditor.url = !1;
+				zeditor.mode.innerHTML = zeditor.lang.pm;
+				break;
 		}
 	},
-	add: function (x, y) {
+	add: function(x, y) {
 		zeditor.textarea.focus();
-		if (typeof (zeditor.textarea) != "undefined") {
+		if (typeof(zeditor.textarea) != "undefined") {
 			var longueur = parseInt(zeditor.textarea.value.length);
 			var selStart = zeditor.textarea.selectionStart;
 			var selEnd = zeditor.textarea.selectionEnd;
@@ -133,8 +133,9 @@ var zeditor = {
 		} else zeditor.textarea.value += x + y;
 		zeditor.textarea.focus()
 	},
-	preview: function (a) {
+	preview: function(a) {
 		preview = document.getElementById('ze-preview');
+		$('.ze-popups').hide();
 		if (preview.style.display == 'block') {
 			preview.style.display = 'none';
 			document.getElementById('editor-top').setAttribute('style', 'height:38px; transform: scaleY(1);-webkit-transform: scaleY(1)');
@@ -145,19 +146,19 @@ var zeditor = {
 			$.post(zeditor.url, {
 				"message": zeditor.textarea.value,
 				"preview": "Preview",
-			}, function (data) {
+			}, function(data) {
 				preview.style.display = 'block';
 				preview.innerHTML = zeditor.replace($(data).find(zeditor.preview_dom).html())
 			})
 		}
 	},
-	closePreview: function (a) {
+	closePreview: function(a) {
 		$(a).hide();
 		zeditor.textarea.focus();
 		document.getElementById('editor-preview-button').innerHTML = zeditor.lang.preview_button;
 		document.getElementById('editor-top').setAttribute('style', 'height:38px; transform: scaleY(1);-webkit-transform:scaleY(1)');
 	},
-	post: function (a) {
+	post: function(a) {
 		if (zeditor.mode.innerHTML == zeditor.lang.quote) {
 			zeditor.url = $('a[href^="/post?t="]').first().attr("href")
 		}
@@ -169,19 +170,21 @@ var zeditor = {
 					'post': 'Send',
 					'message': zeditor.textarea.value,
 					'subject': zeditor.subject.value
-				}, function (data) {
+				}, function(data) {
 					var en = "Your message has been entered successfully",
-					vi = "Bài của bạn đã được chuyển";
+						vi = "Bài của bạn đã được chuyển";
 					b = (data.indexOf(en) < 0) ? vi : en;
 					index = data.indexOf(b);
 					if (data.indexOf("Flood control") > 0) {
 						alert(zeditor.lang.flood_message)
 					} else if (data.indexOf('A new message') > 0) {
-						$.post('/post', $(data).find("form[name='post']").serialize() + '&post=1', function (c) {
-							(index < 0) ? alert(zeditor.lang.error_message) : zeditor.newPost($(c).find('p:contains("' + b + '") a:first').attr('href'));zeditor.closePreview('#ze-preview')
+						$.post('/post', $(data).find("form[name='post']").serialize() + '&post=1', function(c) {
+							(index < 0) ? alert(zeditor.lang.error_message): zeditor.newPost($(c).find('p:contains("' + b + '") a:first').attr('href'));
+							zeditor.closePreview('#ze-preview')
 						})
 					} else {
-						(index < 0) ? alert(zeditor.lang.error_message) : zeditor.newPost($(data).find('p:contains("' + b + '") a:first').attr('href'));zeditor.closePreview('#ze-preview')
+						(index < 0) ? alert(zeditor.lang.error_message): zeditor.newPost($(data).find('p:contains("' + b + '") a:first').attr('href'));
+						zeditor.closePreview('#ze-preview')
 					}
 				})
 			}
@@ -189,11 +192,11 @@ var zeditor = {
 			zeditor.pm(a)
 		}
 	},
-	newPost: function (a) {
+	newPost: function(a) {
 		var b = a.split('#')[1];
 		zeditor.editor.style.display = 'none';
 		if (zeditor.mode.innerHTML == zeditor.lang.reply || zeditor.mode.innerHTML == zeditor.lang.quote) {
-			$.get(a, function (data) {
+			$.get(a, function(data) {
 				$('<div class="zeditor-new">' + zeditor.replace($(data).find("#p" + b).wrapAll('<div></div>').parent().html()) + '</div>').insertAfter(zeditor.post_dom + ':last');
 				$('html,body').animate({
 					scrollTop: $('.zeditor-new:last').offset().top
@@ -203,14 +206,14 @@ var zeditor = {
 		}
 		if (zeditor.mode.innerHTML == zeditor.lang.edit) {
 			dom = $(zeditor.editor).parents(zeditor.post_dom).find(zeditor.message_dom);
-			$.get(a, function (data) {
+			$.get(a, function(data) {
 				$(dom).html(zeditor.replace($(data).find('#p' + b + ' ' + zeditor.message_dom).html()));
 				$(dom).hide().fadeIn('slow');
 			})
 		}
 		zeditor.textarea.value = '';
 	},
-	popup: function (a, b) {
+	popup: function(a, b) {
 		zeditor.textarea.focus();
 		x = document.getElementById(a);
 		y = document.getElementById('ze-editor').offsetWidth;
@@ -226,15 +229,15 @@ var zeditor = {
 		}
 		$('#' + a).siblings().hide();
 	},
-	createSmilies: function () {
+	createSmilies: function() {
 		smiley = document.getElementById('ze-smiley');
 		if (smiley.innerHTML == '') {
-			$(smiley).load('/smilies.forum?mode=smilies_frame', function () {
+			$(smiley).load('/smilies.forum?mode=smilies_frame', function() {
 				this.innerHTML = this.innerHTML.replace(/alt=\"(.*?)\"/g, 'onclick="zeditor.smiley(\'$1\')"')
 			})
 		}
 	},
-	createColor: function () {
+	createColor: function() {
 		if (!document.getElementById('ze-color-inner')) {
 			var c = '<table cellspacing="0" id="ze-color-inner">';
 			var colors = new Array('00', '33', '66', '99', 'CC', 'FF');
@@ -251,10 +254,10 @@ var zeditor = {
 			document.getElementById('ze-color').innerHTML = c + '</table><div id="ze-color-info"><div class="ze-color-input"><div>#</div><input id="ze-color-hex" maxlength="6" onkeypress="zeditor.convertHex(this)" placeholder="000000"></div><div class="ze-color-input"><div>R</div><input id="ze-color-r" maxlength="3" onkeypress="zeditor.convertRGB()" placeholder="000"></div><div class="ze-color-input"><div>G</div><input id="ze-color-g" maxlength="3" onkeypress="zeditor.convertRGB()" placeholder="000"></div><div class="ze-color-input"><div>B</div><input id="ze-color-b" maxlength="3" onkeypress="zeditor.convertRGB()" placeholder="000"></div><div class="editor-button-confirm" onclick="zeditor.submitColor()">OK</div></div>';
 		}
 	},
-	hideColor: function () {
+	hideColor: function() {
 		document.getElementById('ze-color').setAttribute('style', 'display:none')
 	},
-	submitColor: function () {
+	submitColor: function() {
 		if (document.getElementById('ze-color-hex').value !== '') {
 			zeditor.add('[color=#' + document.getElementById('ze-color-hex').value + ']', '[/color]');
 		} else {
@@ -262,26 +265,27 @@ var zeditor = {
 		}
 		zeditor.hideColor();
 	},
-	convertHex: function (a) {
+	convertHex: function(a) {
 		var a = a.value,
 			result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(a);
 		result ? (document.getElementById('ze-color-r').value = parseInt(result[1], 16), document.getElementById('ze-color-g').value = parseInt(result[2], 16), document.getElementById('ze-color-b').value = parseInt(result[3], 16)) : null
 	},
-	convertRGB: function () {
+	convertRGB: function() {
 		var r = document.getElementById('ze-color-r').value,
 			g = document.getElementById('ze-color-g').value,
 			b = document.getElementById('ze-color-b').value,
 			rgb = b | (g << 8) | (r << 16);
 		document.getElementById('ze-color-hex').value = (0x1000000 + rgb).toString(16).slice(1);
 	},
-	smiley: function (a) {
+	smiley: function(a) {
 		zeditor.textarea.value += a;
 		zeditor.textarea.focus();
 		document.getElementById('ze-smiley').style.display = 'none'
 	},
-	tag: function (a) {
+	tag: function(a) {
 		var e = $(a).parents(zeditor.post_dom).find('a[href^="/u"]:has(span)').eq(0).text(); // eq(1)
-		zeditor.textarea.value += '[tag]' + e + '[/tag]';
+		e.indexOf(' ') >= 0 ? e = '"' + e + '"' : e = e;
+		zeditor.textarea.value += '@' + e + ' ';
 		if (e.length > 0) {
 			if (confirm(zeditor.lang.notify_message + ' ' + e + '?')) {
 				zeditor.post_pm(e, zeditor.lang.tag_message_title + ' "' + document.title + '"', zeditor.textarea.value);
@@ -290,7 +294,7 @@ var zeditor = {
 			alert(zeditor.lang.tag_message_error)
 		}
 	},
-	pm: function (a) {
+	pm: function(a) {
 		var e = $(a).parents(zeditor.post_dom).find('a[href^="/u"]:not(:empty)').eq(0).text(); // eq(1)
 		if (e.length > 0) {
 			zeditor.post_pm(e, zeditor.lang.pm_message_title + ' "' + document.title + '"', zeditor.textarea.value);
@@ -299,55 +303,59 @@ var zeditor = {
 		}
 		zeditor.textarea.value = '';
 	},
-	post_pm: function (name, subject, message) {
+	post_pm: function(name, subject, message) {
 		$.post('/privmsg?mode=post&post=1', {
 			'username[]': name,
 			'subject': subject,
 			'message': message,
 			'post': 'Send',
 			'folder': 'inbox'
-		}, function () {
+		}, function() {
 			alert('Sent');
 		});
 	},
-	replace: function (a) {
-		return a.replace(/\[tag\](.*?)\[\/tag\]/g, function (a, b) {
+	replace: function(a) {
+		return a.replace(/title="Viewing/gi, 'onmouseover="zeditor.avatar(this, this.href)" class="ze-avatar"').replace(/\[tag\](.*?)\[\/tag\]/g, function(a, b) {
 			return '<a href="/profile?mode=viewprofile&u=' + b.replace(/ /g, "+") + '" onmouseover="zeditor.avatar(this, this.href)" class="ze-avatar">@' + b + '</a>'
-		}).replace(/:<\/cite>\[link="(\S+)"\]/gi, function (a, b) {
+		}).replace(/:<\/cite>\[link="(\S+)"\]/gi, function(a, b) {
 			return ' ' + zeditor.lang.quote_message + ' <a href="' + b + '"> ' + b.split("#")[1] + '</a></cite>'
 		})
 	},
-	copyright: function () {
+	copyright: function() {
 		if (confirm("zEditor 1.7.1 by Zero\nClick OK for more details")) {
 			window.open('https://github.com/mysticzero/zEditor/');
 		}
 	},
-	loading: function (a) {
+	loading: function(a) {
 		b = document.getElementById('editor-loading');
 		a == 'on' ? (b.style.display = '') : (b.style.display = 'none')
 	},
-    advance: function() {
-        if (zeditor.textarea.value != '') {
-            if (confirm("All your current progress will be lost. Click OK to continue")) {
-                location.href = zeditor.url;
-            }
-        } else {
-            location.href = zeditor.url;
-        }
-    },
-	avatar: function (a, b) {
+	advance: function() {
+		if (zeditor.textarea.value != '') {
+			if (confirm("All your current progress will be lost. Click OK to continue")) {
+				location.href = zeditor.url;
+			}
+		} else {
+			location.href = zeditor.url;
+		}
+	},
+	avatar: function(a, b) {
 		if (a.getElementsByTagName('span')[0] == null) {
-			$.get(b, function (data) {
-				a.innerHTML += '<span>' + $(data).find('#profile-advanced-right img:first')[0].outerHTML + '</span>'
+			$.get(b, function(data) {
+				if ($(data).find('#profile-advanced-right').length > 0) {
+					a.innerHTML += '<span>' + $(data).find('#profile-advanced-right img:first')[0].outerHTML + '</span>'
+				} else {
+					a.innerHTML += '<span>This user does not exist</span>'
+				}
 			});
 		}
 	},
 	imgur: {
 		input: 0,
 		holder: [],
-		prepare: function () {
+		prepare: function() {
 			zeditor.imgur.input = document.getElementById('ze-imgur-input');
-			document.getElementById('ze-imgur-placeholder').addEventListener("change", function (e) {
+			document.getElementById('ze-imgur-placeholder').addEventListener("change", function(e) {
 				var a = e.target.files;
 				for (i = 0; i < a.length; i++) {
 					if (a[i].type.match(/image.*/)) {
@@ -357,7 +365,7 @@ var zeditor = {
 				}
 			}, false);
 		},
-		mode: function () {
+		mode: function() {
 			if (zeditor.imgur.input.placeholder == zeditor.lang.imgur_placeholder1) {
 				zeditor.imgur.input.placeholder = zeditor.lang.imgur_placeholder2;
 				zeditor.imgur.input.disabled = false;
@@ -370,10 +378,10 @@ var zeditor = {
 				zeditor.imgur.input.value = '';
 			}
 		},
-		files: function () {
+		files: function() {
 			document.getElementById('ze-imgur-placeholder').click();
 		},
-		upload: function (file) {
+		upload: function(file) {
 			document.body.className = "uploading";
 			var fd = new FormData();
 			fd.append("image", file);
@@ -381,7 +389,7 @@ var zeditor = {
 			var xhr = new XMLHttpRequest();
 			var output = document.getElementById("ze-imgur-images");
 			xhr.open("POST", "http://api.imgur.com/2/upload.json");
-			xhr.onload = function () {
+			xhr.onload = function() {
 				if (this.status == 400) {
 					document.getElementById("ze-imgur-status").innerHTML = JSON.parse(xhr.responseText).error.message;
 				} else {
@@ -391,7 +399,7 @@ var zeditor = {
 
 					var a = document.createElement("a");
 					a.href = dlink;
-					a.addEventListener("click", function(event){
+					a.addEventListener("click", function(event) {
 						event.preventDefault();
 						zeditor.textarea.value += '[img]' + this.firstChild.src.replace('s.', '.') + '[/img]'
 					});
@@ -407,7 +415,7 @@ var zeditor = {
 			};
 			xhr.send(fd);
 		},
-		submit: function () {
+		submit: function() {
 			if (zeditor.imgur.input.placeholder == zeditor.lang.imgur_placeholder1) {
 				for (var i = 0; i < zeditor.imgur.holder.length; i++) {
 					zeditor.imgur.upload(zeditor.imgur.holder[i])
@@ -421,6 +429,6 @@ var zeditor = {
 	},
 
 };
-$(function () {
+$(function() {
 	zeditor.ready()
 });

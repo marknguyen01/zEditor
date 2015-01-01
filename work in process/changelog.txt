@@ -1,3 +1,6 @@
-- Clicking "Advanced" button will no longer trigger alert if the textarea is empty
-- Tweaked the tagging feature, it should work properly now
-- Fixed some css display issues
+MAJOR
+- Adapted Forumotion's Tagging System (it has many limitations as stated by Forumotion)
+MINOR
+- Going to preview mode will now hide all the current popups
+- If tagged user does not exist, that user's avatar will not show
+- zEditor still supports [tag] bbcode
